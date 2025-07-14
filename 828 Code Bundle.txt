@@ -1,0 +1,139 @@
+100+ Hacking Tricks: Executable Code Bundle (Chapters 1–10)
+
+Chapter 1
+# Update package list and upgrade all packages
+sudo apt-get update && sudo apt-get upgrade -y
+# Simulate upgrade without making any changes (safe test run)
+sudo apt-get upgrade --simulate
+
+Chapter 2
+# WHOIS lookup for domain owner and registrar info
+whois hackthissite.org
+# Basic DNS lookup
+dig hackthissite.org
+# Basic Nmap scan to detect open ports
+nmap hackthissite.org
+# Nmap version scan to detect services and their versions
+nmap hackthissite.org -sV
+# ACK scan to check firewall response
+nmap -sA hackthissite.org
+# Idle scan using zombie host
+nmap -sI zombie.example.com:12345 hackthissite.org
+# Brute-force directory scan using common wordlist
+dirb http://www.example.com/ /usr/share/dirb/wordlists/common.txt
+# Scan HTTPS target on port 8080 using GET method
+dirb https://www.example.com:8080/ -p 8080 -X GET
+# Email/domain reconnaissance with theHarvester
+theHarvester -d hackthissite.org -l 500 -b all
+# Start nslookup to find MX records (run in nslookup interactive mode)
+nslookup
+set type=mx
+hackthissite.org
+# Scan SSL configuration on the target web server
+sslscan hackthissite.org
+# Detect web technologies used by the target website
+whatweb daledumbsitdown.com
+
+Chapter 3
+# Download public documents from a target domain for metadata analysis
+metagoofil -d hackthissite.org -t pdf,xlsx,docx,pptx -w
+# Clone SpiderFoot for automated OSINT recon
+git clone https://github.com/smicallef/spiderfoot.git
+cd spiderfoot
+pip install -r requirements.txt
+# Start SpiderFoot on localhost (web UI at http://127.0.0.1:5001)
+python3 sf.py -l 127.0.0.1:5001
+# Find subdomains and hosts from DNS records
+dnsmap hackthissite.org
+# Scan default directories on the target site
+dirsearch.py -u http://hackthissite.org
+# Use a custom wordlist for directory scanning
+dirsearch.py -u http://hackthissite.org -w /path/to/wordlist.txt
+# Enable recursive directory search
+dirsearch.py -u http://hackthissite.org/ -r
+# Download an offline copy of a website
+httrack http://hackthissite.org -O ~/webmirror/hackthissite
+# Limit HTTrack to 2 levels deep
+httrack http://hackthissite.org -O ~/webmirror/hackthissite -%d2
+# Download only HTML and JPEG files
+httrack http://hackthissite.org -O ~/webmirror/hackthissite -%M text/html,image/jpeg
+# Use a proxy server for downloading
+httrack http://hackthissite.org -O ~/webmirror/hackthissite -phttp://proxy.example.com:8080
+# Remove old version of Creepy and cleanup
+apt-get remove --purge creepy
+apt-get autoremove
+# Install Creepy dependencies for location tracking via social media
+pip install -U pytz python-qt flickrapi python-instagram yapsy tweepy google-api-python-client python-dateutil configobj dominate
+# Clone Creepy and launch tool
+git clone https://github.com/jkakavas/creepy.git
+cd creepy
+python CreepyMain.py
+
+Chapter 4
+# Stealth SYN scan for open ports (half-open scan)
+nmap -sS 192.168.1.10
+# Full TCP connect scan
+nmap -sT 192.168.1.10
+# ACK scan to check for stateful firewall
+nmap -sA 192.168.1.10
+# FIN scan (works on Unix-based targets)
+nmap -sF 192.168.1.10
+# NULL scan (sends no flags)
+nmap -sN 192.168.1.10
+# Xmas scan (FIN, PSH, URG flags set)
+nmap -sX 192.168.1.10
+# UDP scan for detecting UDP services
+nmap -sU 192.168.1.10
+# Fast SYN scan using Masscan
+masscan -p1-65535 --rate 10000 --half-open 192.168.1.10
+# Fast UDP scan using Masscan
+masscan -pU:1-65535 --rate 10000 192.168.1.10
+# Idle scan using zombie machine
+nmap -Pn -sI zombie.example.com:12345 192.168.1.10
+# SSDP discovery script (UDP port 1900)
+nmap -p 1900 --script broadcast-ssdp-discover 192.168.1.0/24
+# DNS zone transfer attempt
+dig axfr @ns1.hackthissite.org hackthissite.org
+# SSL certificate collection and details
+nmap -p 443 --script ssl-cert hackthissite.org
+# Install DNSRecon for DNS enumeration
+sudo apt-get install dnsrecon
+# Basic DNS reconnaissance scan
+dnsrecon -d hackthissite.org
+# Brute force DNS using custom wordlist
+dnsrecon -d hackthissite.org -t brt -D subdomains.txt -o results.txt
+# TCP ACK scan with Hping3
+hping3 -c 1 -V -p 80 -A hackthissite.org
+# ICMP echo request (like ping)
+hping3 -c 1 -V --icmp -p 80 hackthissite.org
+# UDP packet scan
+hping3 -c 1 -V --udp -p 53 hackthissite.org
+# SYN scan with Hping3
+hping3 -c 1 -V -S -p 80 hackthissite.org
+# FIN scan with Hping3
+hping3 -c 1 -V -F -p 80 hackthissite.org
+# Aggressive Nmap scan with banner grabbing and OS detection
+nmap -v -A scanme.nmap.org
+# Basic banner grab with Netcat
+echo "" | nc -vv -n 45.33.32.156 80
+# Connect to a web server using Telnet
+telnet 45.33.32.156 80
+# Save HTTP response headers using Wget
+wget --save-headers -O headers.txt http://45.33.32.156:80
+# Banner grabbing with Nmap's banner script
+nmap -sV --script=banner scanme.nmap.org
+# Website tech stack fingerprinting
+whatweb scanme.nmap.org
+# Install amap to identify services
+sudo apt-get install amap
+# Basic service fingerprinting with amap
+amap scanme.insecure.org 80
+# Advanced amap scan with output
+amap -A -B -q -o output.txt hackthissite.org 80
+# Enable OS detection with Nmap
+nmap -O scanme.insecure.org
+# Install and launch p0f for passive OS fingerprinting
+sudo apt-get install p0f
+sudo p0f -i eth0
+sudo p0f -i eth0 -o results.txt -p
+
